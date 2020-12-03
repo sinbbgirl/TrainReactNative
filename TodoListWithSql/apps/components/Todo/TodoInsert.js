@@ -37,6 +37,7 @@ const TodoInsert = () => {
     });
     input.current.clear();
     setContent('');
+    input.current.blur();
   };
 
   const onReset = () => {
@@ -69,7 +70,7 @@ const TodoInsert = () => {
         //   onPress={()=>alert('aa')}
         />
         <Button
-          title="Rewrite"
+          title=" Rewrite"
           type="clear"
           titleStyle={{color: '#821752'}}
           icon={{

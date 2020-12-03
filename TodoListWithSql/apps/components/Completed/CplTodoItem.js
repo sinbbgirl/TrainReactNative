@@ -38,7 +38,16 @@ const CplTodoItem = ({id, content}) => {
       {cancelable: false},
     );
   };
-
+  const unCompleteItem = (id) => {
+    db.transaction((txn) => {
+      txn.executeSql(
+        `UPDATE table_todolist SET
+            checked = 0
+            WHERE id = ?`,
+        [id],
+      );
+    });
+  };
   return (
     <View style={styles.itemContainer}>
       <Input
@@ -52,7 +61,12 @@ const CplTodoItem = ({id, content}) => {
         containerStyle={styles.containerStyle}
         disabled
       />
-      <Icon name="check" size={25} color="#16697a"/>
+      <Icon
+        name="check"
+        size={25}
+        color="#16697a"
+        onPress={() => unCompleteItem(id)}
+      />
       <Text>&nbsp;&nbsp;</Text>
       <FontIcon
         name="minus"
@@ -71,11 +85,12 @@ const styles = StyleSheet.create({
   },
   inputStyle: {
     color: '#394867',
-    textDecorationLine:'line-through'
+    textDecorationLine: 'line-through',
   },
   containerStyle: {
-    width: '75%',
-    marginRight: 5,
+    width: '80%',
+    marginRight: 8,
+    marginLeft: 3,
   },
 });
 
